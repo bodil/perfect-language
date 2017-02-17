@@ -1,0 +1,12 @@
+{
+  "name": "langs-talk",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "pink run slides.js"
+  },
+  "license": "GPL-3.0+",
+  "dependencies": {
+    "pink": "0.0.5",
+    "pink-repl": "0.0.1"
+  }
+}

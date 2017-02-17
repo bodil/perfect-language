@@ -1,0 +1,67 @@
+#+TITLE: A talk about programming languages
+#+AUTHOR: Bodil Stokke
+#+EMAIL: bodil@bodil.org
+
+* WHAT IS THE BEST PROGRAMMING LANGUAGE
+
+* Ergonomics
+** Types, but how many - or how expressive
+** Abstraction
+*** Hitting the right level of abstraction vs optimisation
+*** "abstraction ceiling" ♥
+* Tooling
+** You don't get anywhere with just a compiler
+* Community
+** See also: tooling
+*** npm made the Node community happen
+* Can we build a language without compromise?
+
+
+* Code slides
+** JS horrors
+
+add(2, 2);
+add(2, "2");
+add(2);
+add("2");
+
+** TS horrors
+
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+add(2, 2);
+add(2, "2");
+add(2);
+add("2");
+
+** PS horrors
+
+add 2 2
+add 2.0 2.0
+
+add :: forall a. (Semiring a) => a -> a -> a
+add a b = a + b
+
+add "2" "2"
+
+concat :: forall a. (Semigroup a) => a -> a -> a
+concat a b = a <> b
+
+** PS Functor
+
+data Single a = Single a
+
+instance collectionSingle :: Collection Single where
+  map f (Single a) = Single (f a)
+
+map (_ + 2) (Single 2)
+
+-- clear definition and run map over array:
+
+map (_ + 2) [1, 2, 3, 4, 5]
+
+-- thought experiment:
+
+map (_ + 2) myDatabaseTable
