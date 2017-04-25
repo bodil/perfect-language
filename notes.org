@@ -2,66 +2,227 @@
 #+AUTHOR: Bodil Stokke
 #+EMAIL: bodil@bodil.org
 
-* WHAT IS THE BEST PROGRAMMING LANGUAGE
+* Real notes
 
-* Ergonomics
-** Types, but how many - or how expressive
-** Abstraction
-*** Hitting the right level of abstraction vs optimisation
-*** "abstraction ceiling" ♥
-* Tooling
-** You don't get anywhere with just a compiler
-* Community
-** See also: tooling
-*** npm made the Node community happen
-* Can we build a language without compromise?
+** There is no such thing as a perfect language.
+It all depends on what you need it to do. Different tradeoffs made.
 
+** I should design a language.
+If I could, what would I focus on? Where would my ideas come from?
 
-* Code slides
-** JS horrors
+** LITERALLY THE WORST
+Everybody hates computers. Computers don't work. Why is that?
 
-add(2, 2);
-add(2, "2");
-add(2);
-add("2");
+** Hard to make mistakes.
+Where possible, a language should be designed to keep us from making mistakes.
 
-** TS horrors
+** JavaScript code
+vote(database, "puppies");
+vote(database, "otters");
+vote("otters", "0");
 
-function add(a: number, b: number): number {
-  return a + b;
-}
+** TypeScript code
+vote(database, "puppies");
+vote(database, 1337);
+vote("otters", "are best");
+vote(database, "otters");
 
-add(2, 2);
-add(2, "2");
-add(2);
-add("2");
+** ERGONOMICS
+An often undervalued aspect of language design.
 
-** PS horrors
+** A conversation between the compiler and the programmer.
+I say "do this," the compiler says "maybe try this instead."
 
-add 2 2
-add 2.0 2.0
+** No ambiguity
+You don't want to trip yourself up in syntax or semantics.
 
-add :: forall a. (Semiring a) => a -> a -> a
-add a b = a + b
+** 1 + 2 * 3
+How's your precedence tables?
 
-add "2" "2"
+** (+ 1 (* 2 3))
+Lispers represent!
 
-concat :: forall a. (Semigroup a) => a -> a -> a
-concat a b = a <> b
+** 1 + (2 * 3)
+Pony forces parentheses where ambiguity might arise.
 
-** PS Functor
+** Don't make me think.
+In syntax, semantics and library design, wherever something can be designed to be obvious, it should be. Don't put unnecessary cognitive load on the programmer.
 
-data Single a = Single a
+** Rust example
+in main():
+  stdout().write(say_hello(pinkie, ponyville));
 
-instance collectionSingle :: Collection Single where
-  map f (Single a) = Single (f a)
+oops, &str vs string
 
-map (_ + 2) (Single 2)
+  add .to_string() to both string literals.
 
--- clear definition and run map over array:
+oops, std::io::Write isn't in scope.
 
-map (_ + 2) [1, 2, 3, 4, 5]
+  use std::io::{stdout, Write};
 
--- thought experiment:
+oops, write() expects an array of bytes.
 
-map (_ + 2) myDatabaseTable
+  stdout().write(say_hello(pinkie, ponyville).as_bytes());
+
+Now let's print it twice!
+
+  copy stdout.write line
+
+oops, ownership troubles
+
+  fn say_hello(person: &String, from: &String)
+  add & to all four pinkie/ponyville uses.
+
+it finally works. bozhe moi!
+
+** Slide with Sid logged out
+bozhe moi!
+
+** The Reasoning Footprint
+No wonder rustaceans talk about the "reasoning footprint."
+
+Actually, Rust's reasoning footprint is very low - it's the boilerplate that gets in the way.
+
+The reasoning footprint is about what can be safely made implicit without placing extra cognitive load on the user. How deep into the code do you need to think or look to understand what's been elided?
+
+Example: can those references be made implicit?
+
+** Higher Order Programming
+
+Can we also abstract away implementation details to the extent that we don't need to worry about how something is done behind the scenes?
+
+Hudak spake: "When you do something at one level, you can abstract it away to a higher level."
+
+** TypeScript code
+Remember this?
+
+** Haskell code
+Complete the vote function:
+  vote db v = insertWith (+) v 1 db
+
+Haskell has added: immutable data structures, insert-or-update function.
+
+** The abstraction ceiling
+A language design comes with a limit to how much abstraction you can easily do.
+
+** Elm code
+All Elm collection types have a map function.
+
+** More Elm code
+To make a function to sqrt a collection of numbers, you need to make a new function for each type of collection.
+
+** Imaginary Elm code
+What if we could have a generalisation over collections, and define sqrt only once?
+
+** Rust code
+This example need higher kinded types. In Rust, you can define a Collection trait, but you can't define that map must return the same collection type.
+
+** Rust code
+Add onto the array literal:
+  .into_iter()
+  .map(|i| i + i)
+  .collect();
+
+Rust relies on iterators to perform ops on collection types, and is able to
+construct collections of the correct type from iterators.
+
+** Haskell code
+Haskell actually has higher kinded types, though.
+
+  map (\i -> i + i) [1,2,3]
+
+Lo and behold.
+
+** Efficiency
+Not being slow can be useful in certain circumstances.
+
+** The legacy of Von Neumann
+It doesn't matter how ivory tower lambda calculus we go, our programs still have to run on glorified Von Neumann machines. We can't always depend on compilers to translate.
+
+** Rust code
+How do you iterate over a cons list? Recursion!
+
+Sorry, looping + mutation is faster.
+
+Complete the find function:
+  let mut i = l;
+  loop { ... }
+
+** Sid with food
+So a truly low level language tries to avoid abstractions over the Von Neumann situation in general.
+
+** Zero Cost abstractions
+Rust hopes to get away with what it calls zero cost abstractions - it's OK to abstract as long as it doesn't slow you down.
+
+As we increase the highlevelness of our language, we might add:
+** Garbage collection
+** Persistent data structures
+** Lazy evaluation
+
+** Sharknado sign
+But what if... we could design a language which starts out low level, and which allows us to build abstractions - even things like GC - on top of it, but lets us drop down when we need to.
+
+It's a million to one shot but it might just work!
+
+** Tooling
+Turns out tooling is actually really important to the dev experience.
+
+** What's your package manager like?
+Make your left-pad jokes.
+
+Turns out package managers can be really important too.
+
+They provide easy sharing and easy access to shared code. This is how community is built.
+
+** Community
+What's even the point of a language without people using it?
+
+Community building is an important skill for the aspiring language designer.
+
+** Gratuitous doggo slide
+
+** Sharing code
+A community of programmers produces and shares code, building towards a level of code availability needed to attract non-pioneer types.
+
+** Documentation
+Nobody can write all the docs themselves. Community members can contribute docs even if they're not contributing code. This is how you grow even further.
+
+** Education
+Community members educate each other not just through docs, but by helping each other out in all sorts of ways - just being available for each other. Good communities attract more people.
+
+** Marketing
+This deserves its own slide.
+
+** Marketing!
+Making a language is great, but what's even the point of it if your boss won't let you use it?
+
+Marketing towards organisations and businesses (while capitalism exists), making credible business cases for adopting your language. Finally: world domination.
+
+** The problem
+How do you get the suits to play along? How do you even get the entrenched enterprise devs?
+
+Make it look like Java. (Or whatever they're used to.)
+
+** A sketch
+Bodula-2 is based on JS, but contains ideas from decent languages. Designed to look familiar while introducing ideas from FP.
+
+** A tweet about Haskell
+But syntax does matter, too. Here's a typical Haskell insight.
+
+** The same thing in TypeScript
+Is this insight even possible in TypeScript syntax?
+
+** Distributed systems
+Rethinking distributed systems through language design would be a really cool idea. Somebody else will have to do it.
+
+** Thank you!
+Sid drooling around a hot dog.
+
+** Bonus slide:
+Idris.
+
+1 & 2 & 3 & End : Vector 3 Integer
+
+index 0 $ 1 & 2 & 3 & End
+
+index 5 $ 1 & 2 & 3 & End

@@ -23,7 +23,7 @@
       </section>
 
       <section class="photo meme" data-image="m/author-portrait.jpg">
-        <p class="bottom">Sid</p>
+        <p class="bottom">Sid<br/><span class="fragment" style="font-size: 0.7em">@myregalbeagle</span></p>
       </section>
 
       <section class="photo" data-image="m/top-dog.jpg">
@@ -35,6 +35,10 @@
         <p class="bottom small">I should design a language.</p>
       </section>
 
+      <section class="photo meme" data-image="m/hacking.gif">
+        <p class="bottom">LITERALLY THE WORST.</p>
+      </section>
+
       <section class="photo" data-image="m/mistake.jpg">
         <h3>Hard to make mistakes</h3>
       </section>
@@ -42,8 +46,18 @@
       <section data-repl="on">
         <div class="row">
           <div data-id="js-ed" data-lang="js" data-type="editor" data-target="js-repl">
-            add = function(a, b) {
-              return a + b;
+            database = {
+              "ponies": 5,
+              "puppies": 6
+            };
+
+            vote = function(db, vote) {
+              const newdb = {};
+              for (const key in db) {
+                newdb[key] = db[key];
+              }
+              newdb[vote] = db[vote] + 1;
+              return newdb;
             }
           </div>
           <div data-id="js-repl" data-lang="js" data-type="repl" data-target="js-ed"></div>
@@ -53,30 +67,24 @@
       <section data-repl="on">
         <div class="row">
           <div data-id="ts-ed" data-lang="typescript" data-type="editor" data-target="ts-repl">
-            function add(a, b) {
-              return a + b;
+            type Database = {[key: string]: number};
+
+            const database: Database = {
+              "ponies": 5,
+              "puppies": 6
+            };
+
+            function vote(db: Database, vote: string) {
+              const newdb = {};
+              for (const key in db) {
+                newdb[key] = db[key];
+              }
+              newdb[vote] = db[vote] + 1;
+              return newdb;
             }
           </div>
           <div data-id="ts-repl" data-lang="typescript" data-type="repl" data-target="ts-ed"></div>
         </div>
-      </section>
-
-      <section data-repl="on">
-        <div class="row">
-          <div data-id="ps-ed" data-lang="purescript" data-type="editor" data-target="ps-repl">
-            module Main where
-
-            import Prelude
-
-            add :: Number -> Number -> Number
-            add a b = a + b
-          </div>
-          <div data-id="ps-repl" data-lang="purescript" data-type="repl" data-target="ps-ed"></div>
-        </div>
-      </section>
-
-      <section class="photo meme" data-image="m/problem.gif">
-        <p class="bottom">What was the problem?</p>
       </section>
 
       <section class="photo meme" data-image="m/recon.jpg">
@@ -119,20 +127,76 @@
         <p class="bottom">Don't make me think.</p>
       </section>
 
-      <section class="photo meme" data-image="m/hello-joe.gif">
+      <section data-repl="on">
+        <div class="row">
+          <div data-id="rust-ed" data-lang="rust" data-type="editor" data-target="rust-out">
+            use std::io::stdout;
+
+            fn say_hello(person: String, from: String) -> String {
+              format!("Oh hi {} from {}!\n", person, from)
+            }
+
+            fn main() {
+              let pinkie = "Pinkie";
+              let ponyville = "Ponyville";
+            }
+          </div>
+          <div data-id="rust-out" data-lang="rust" data-type="repl" data-target="rust-out"></div>
+        </div>
       </section>
 
-      <section data-highlight="on">
-        <pre class="erlang">
--behaviour(gen_server).
+      <section class="photo meme" data-image="m/cant.jpg">
+        <p class="fragment bottom">The REASONING FOOTPRINT</p>
+      </section>
 
-init([]) ->
-  State = 0,
-  {ok, State}.
+      <section class="photo" data-image="m/higher-order.jpg">
+        <h3>HIGHER ORDER PROGRAMMING</h3>
+      </section>
 
-handle_call({add, Number}, From, State) ->
-  {reply, ok, State + Number}.
-        </pre>
+      <section data-repl="on">
+        <div class="row">
+          <div data-id="ts-ed" data-lang="typescript" data-type="editor" data-target="ts-repl">
+            type Database = {[key: string]: number};
+
+            const database: Database = {
+              "ponies": 5,
+              "puppies": 6
+            };
+
+            function vote(db: Database, vote: string) {
+              const newdb = {};
+              for (const key in db) {
+                newdb[key] = db[key];
+              }
+              newdb[vote] = db[vote] + 1;
+              return newdb;
+            }
+          </div>
+          <div data-id="ts-repl" data-lang="typescript" data-type="repl" data-target="ts-ed"></div>
+        </div>
+      </section>
+
+      <section data-repl="on">
+        <div class="row">
+          <div data-id="hs-ed" data-lang="haskell" data-type="editor" data-target="hs-repl">
+            module Election2017 where
+
+            import Prelude
+            import Data.Map.Strict (Map, insertWith, fromList)
+
+            type Database  = Map String Int
+
+            database :: Database
+            database = fromList
+              [ ("ponies", 5)
+              , ("puppies", 6)
+              ]
+
+            vote :: Database -> String -> Database
+            vote db v =
+          </div>
+          <div data-id="hs-repl" data-lang="haskell" data-type="repl" data-target="hs-ed"></div>
+        </div>
       </section>
 
       <section class="photo meme" data-image="m/bagged.jpg">
@@ -142,22 +206,27 @@ handle_call({add, Number}, From, State) ->
       <section data-highlight="on">
         <pre class="elm">
 
-Array.map sqrt myArray
-List.map sqrt myList
-Set.map sqrt mySet
+Array.map function myArray
+List.map function myList
+Set.map function mySet
         </pre>
       </section>
 
       <section data-highlight="on">
         <pre class="elm">
 
-sqrtArray : Array a -> Array a
-sqrtList : List a -> List a
-sqrtSet : Set a -> Set a
+sqrtArray : Array Float -> Array Float
+sqrtArray array = Array.map sqrt array
+
+sqrtList : List Float -> List Float
+sqrtList list = List.map sqrt list
+
+sqrtSet : Set Float -> Set Float
+sqrtSet set = Set.map sqrt set
         </pre>
         <pre class="elm fragment">
-sqrtCollection : (Collection c) => c a -> c a
-sqrtCollection c = map sqrt c
+sqrtColl : Collection c => c Float -> c Float
+sqrtColl c = Collection.map sqrt c
         </pre>
       </section>
 
@@ -173,15 +242,31 @@ trait Collection&lt;A&gt; {
 
       <section data-repl="on">
         <div class="row">
-          <div data-id="ps-ed" data-lang="purescript" data-type="editor" data-target="ps-repl">
-            module Main where
-
-            import Prelude
-
-            class Collection f where
-            map :: forall a b. (a -> b) -> f a -> f b
+          <div data-id="rust-ed" data-lang="rust" data-type="editor" data-target="rust-out">
+            fn main() {
+              let l: Vec&lt;i32> = [1, 2, 3];
+              println!("{:?}", l);
+            }
           </div>
-          <div data-id="ps-repl" data-lang="purescript" data-type="repl" data-target="ps-ed"></div>
+          <div data-id="rust-out" data-lang="rust" data-type="repl" data-target="rust-out"></div>
+        </div>
+      </section>
+
+      <section data-repl="on">
+        <div class="row">
+          <div data-id="hs-ed" data-lang="haskell" data-type="editor" data-target="hs-repl">
+            module WhatAbstractionCeiling where
+
+            import Prelude hiding (map)
+
+            class Mappable m where
+              map :: (a -> b) -> m a -> m b
+
+            instance Mappable [] where
+              map _ [] = []
+              map f (x:xs) = f x : map f xs
+          </div>
+          <div data-id="hs-repl" data-lang="haskell" data-type="repl" data-target="hs-ed"></div>
         </div>
       </section>
 
@@ -193,21 +278,36 @@ trait Collection&lt;A&gt; {
         <p class="bottom">The legacy of Von Neumann</p>
       </section>
 
+      <section data-repl="on">
+        <div class="row">
+          <div data-id="rust-ed" data-lang="rust" data-type="editor" data-target="rust-out">
+            use std::rc::Rc;
+
+            enum List&lt;A: Copy> {
+              Nil,
+              Cons(A, Rc&lt;List&lt;A>>)
+            }
+
+            fn find&lt;A: Copy + Eq>(target: A, l: &List&lt;A>)
+              -> &List&lt;A>
+            {
+            }
+
+            fn main() {
+            }
+          </div>
+          <div data-id="rust-out" data-lang="rust" data-type="repl" data-target="rust-out"></div>
+        </div>
+      </section>
+
       <section class="photo" data-image="m/dinner.jpg">
         <h3 class="fragment">Zero cost abstractions</h3>
-        <h3 class="fragment">Persistent data structures</h3>
         <h3 class="fragment">Garbage collection</h3>
+        <h3 class="fragment">Persistent data structures</h3>
         <h3 class="fragment">Lazy evaluation</h3>
       </section>
 
       <section class="photo" data-image="m/great-idea.jpg">
-      </section>
-
-      <section class="photo" data-image="m/burrito.jpg">
-        <h3 class="fragment">ERGONOMICS</h3>
-        <h3 class="fragment">ABSTRACTION</h3>
-        <h3 class="fragment">EFFICIENCY</h3>
-        <h3 class="fragment">TOOLING</h3>
       </section>
 
       <section class="photo meme" data-image="m/surf.jpg">
@@ -233,13 +333,127 @@ trait Collection&lt;A&gt; {
         <p class="bottom">MARKETING</p>
       </section>
 
-      <section class="photo meme" data-image="m/hipster.jpg">
-        <p class="bottom">OPEN SOURCE</p>
+      <section class="photo meme" data-image="m/problem.gif">
+      </section>
+
+      <section data-repl="on">
+        <div class="row">
+          <div data-id="mad-scheme" data-lang="js" data-type="editor">
+            // Sparkler inspired pattern matching
+            fn fib: (Number) => Number {
+              0 => 0;
+              1 => 1;
+              n => fib(n - 1) + fib(n - 2);
+            }
+
+            fn add: (Number, Number) => Number {
+              (a, b) => a + b;
+            }
+
+            // Scala style partial application with underscore
+            let plus2: (Number) => Number = add(_, 2);
+
+            let twoPlusTwo: Number = plus2(2);
+
+            // Rust like traits (or Haskell like type classes)
+            trait Iter&lt;A> {
+              next: () => Option&lt;A>;
+            };
+
+            trait Coroutine&lt;A, B> {
+              next: (A) => Option&lt;B>;
+            };
+
+            // ES6 style generator functions
+            fn map: ((A) => B, Iter&lt;A>) => Iter&lt;B> {
+              (fn, stream) *=> for (item of stream) yield fn(item);
+            }
+
+            let lol: Iter&lt;Number> = map(plus2, [1..10]);
+
+            // Algebraic data types
+            data List&lt;A> {
+              Nil;
+              Cons(A, List&lt;A>);
+            };
+
+            // Higher kinded types
+            trait Functor&lt;_> {
+              map: (F&lt;A>, (A) => B) => F&lt;B> where F: Functor;
+            }
+
+            impl Functor for List {
+              map {
+                (Nil, _) => Nil;
+                (Cons(head, tail), fn) => Cons(fn(head), tail.map(fn));
+              }
+            }
+
+            // Dependent types?
+            data Nat {
+              Zero;
+              Succ(Nat);
+            }
+
+            fn add: (Nat, Nat) => Nat {
+              (Zero, n) => n;
+              (Succ(n), m) => Succ(add(n, m));
+            }
+
+            data Vec&lt;N: Nat, A> {
+              Nil: Vec&lt;Zero, A>;
+              Cons(A, Vec&lt;N, A>): Vec&lt;Succ(N), A>;
+            }
+
+            fn concat: (Vec&lt;N, A>, Vec&lt;M, A>) => Vec&lt;add(N, M), A> {
+              (Nil, ys) => ys;
+              (Cons(x, xs), ys) => Cons(x, concat(xs, ys));
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="photo meme" data-image="m/tweet.png">
+      </section>
+
+      <section data-highlight="on">
+        <pre class="haskell">
+ap :: f (a -> b) -> (f a -> f b)
+
+ap: (fn: F&lt;(a: A) => B>, fa: F&lt;A>) => F&lt;B>
+        </pre>
+      </section>
+
+      <section class="photo meme" data-image="m/concurrent.jpg">
+        <p class="bottom">DISTRIBUTED SYSTEMS</p>
       </section>
 
       <section class="photo" data-image="m/hot-dog.gif">
         <h3>Thank you!</h3>
         <p>@bodil</p>
+      </section>
+
+      <section data-repl="on">
+        <div class="row">
+          <div data-id="idr-ed" data-lang="idris" data-type="editor" data-target="idr-repl">
+            module VimSucksUseEmacs
+
+            import Data.Fin
+
+            data ConsList a = Cons a (ConsList a)
+                            | Nil
+
+            infixr 10 &
+            data Vector : Nat -> Type -> Type where
+              End : Vector Z a
+              (&) : a -> Vector n a -> Vector (S n) a
+
+            index : Fin n -> Vector n a -> a
+            index FZ (x & xs) = x
+            index (FS k) (x & xs) = index k xs
+          </div>
+          <div data-id="idr-repl" data-lang="idris" data-type="repl" data-target="idr-ed"></div>
+        </div>
       </section>
 
       <script type="text/javascript" src="dist/pink/pink.js"></script>

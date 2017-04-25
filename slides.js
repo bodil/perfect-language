@@ -9,10 +9,13 @@ import repl from "pink-repl";
 import js from "pink-repl/javascript";
 import typescript from "pink-repl-typescript";
 import purescript from "pink-repl-purescript";
+import rust from "./client/rust";
+import haskell from "./client/haskell";
+import idris from "./client/idris";
 
 new Pink("#slides", {
   background,
   image,
   highlight,
-  repl: repl({js, typescript, purescript})
+  repl: repl({js, typescript, purescript, rust, haskell, idris})
 });

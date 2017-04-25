@@ -6,7 +6,11 @@
   },
   "license": "GPL-3.0+",
   "dependencies": {
+    "brace": "^0.10.0",
+    "eventemitter3": "^2.0.3",
+    "noice-json-rpc": "^1.0.1",
     "pink": "0.0.5",
-    "pink-repl": "0.0.1"
+    "pink-repl": "0.0.1",
+    "rpc-websockets": "^3.3.1"
   }
 }
